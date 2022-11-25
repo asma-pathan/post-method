@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+	  body{
+	  	text-align: center;
+	  	background-image: url(https://i.pinimg.com/originals/2b/38/e9/2b38e97154e53c8be5e52dd226a3d768.jpg);
+	  	background-size: cover;
+	  	background-repeat: no-repeat;
+	  	background-size: 100%;
+	  	font-size: 24px;
+	  }
+	  #name{
+	  	font-size: 24px;
+	  	border-radius: 5px;
+	  }
+	  #password{
+	  	font-size: 24px;
+	  	border-radius: 5px;
+	  }
+	  select{
+	  	font-size: 20px;
+	  	border-radius: 5px;
+
+	  }
+	  button{
+	  	font-size: 20px;
+	  	border-radius: 10px;
+	  }
+	</style>
+</head>
+<body>
+	<p><input placeholder="Enter your name" id="name"/></p>
+	<p><input placeholder="Password" id="password"/></p>
+	  <p id="gender">
+		<input type="radio" value="male" name="gender" id="male" />
+		<label for="male">Male</label>
+		<input type="radio" value="female" name="gender" id="female" style="margin-bottom: 2%;"  />
+		<label for="female">Female</label><br></p>
+	
+	<select name="cars" id="cars">
+		<option>Select options</option>
+		<option value="BMW">BMW</option>
+		<option value="Audii">Audii</option>
+		<option value="RangeRover">RangeRover</option>
+		<option value="Honda">Honda</option>
+	</select>
+	<p><button onclick="show()">Submit</button></p>
+	<script type="text/javascript">
+		function show(){
+			var data=document.getElementById("name").value
+			var password=document.getElementById("password").value
+			var cars=document.getElementById("cars").value
+			var gmale=document.getElementById("male",).checked
+			var gfemale=document.getElementById("female",).checked
+			if(gmale==true) var gender="male"
+				else var gender="female"
+			console.log(data,password,gender,cars)
+			fetch("http://localhost:6200/newData",{
+				method:"POST",
+				headers:{
+					"Content-Type":"application/json"
+				},
+				body:JSON.stringify({name:data,password:password,gender:gender,select:cars})
+			})
+			.then((res)=>{
+				console.log(res)
+				if(res.status===200)
+					alert("Registration succesful")
+			})
+			.catch((err)=>{
+				alert(err)
+			})
+
+		}
+	</script>
+
+</body>
+</html>
